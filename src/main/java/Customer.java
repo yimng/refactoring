@@ -13,29 +13,26 @@ public class Customer {
         rentals.addElement(arg);
     }
 
+    public Enumeration getRentals() {
+        return this.rentals.elements();
+    }
+
     public String getName() {
         return this.name;
     }
 
     public String statement() {
-        Enumeration rentals = this.rentals.elements();
-        String result = "Rental Record for " + getName() + "\n";
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            // show figures for this rental
-            result += "\t" + each.getMovie().getTitile() + "\t" + String.valueOf(each.getCharge()) + "\n";
-        }
-        // add footer lines
-        result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
-        result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " Frequent renter points";
-        return result;
+        return new TextStatement().value(this);
+    }
+    public String htmlStatement() {
+        return new HtmlStatement().value(this);
     }
 
-    private double amountFor(Rental aRental) {
+    public double amountFor(Rental aRental) {
         return aRental.getCharge();
     }
 
-    private double getTotalCharge() {
+    public double getTotalCharge() {
         double result = 0;
         Enumeration rentals = this.rentals.elements();
         while (rentals.hasMoreElements()) {
@@ -45,7 +42,7 @@ public class Customer {
         return result;
     }
 
-    private int getTotalFrequentRenterPoints() {
+    public int getTotalFrequentRenterPoints() {
         int result = 0;
         Enumeration rentals = this.rentals.elements();
         while (rentals.hasMoreElements()) {

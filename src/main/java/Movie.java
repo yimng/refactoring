@@ -46,11 +46,7 @@ public class Movie {
     }
 
     public int getFreuentRenterPoints(int dayRented) {
-        if ((getPriceCode() == Movie.NEW_RELEASE) && dayRented > 1) {
-            return 2;
-        } else {
-            return 1;
-        }
+        return price.getFreuentRenterPoints(dayRented);
     }
 
 }
